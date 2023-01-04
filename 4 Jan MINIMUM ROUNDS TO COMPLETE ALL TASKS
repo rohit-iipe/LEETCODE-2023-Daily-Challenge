@@ -1,0 +1,44 @@
+#USING_DICTIONARY
+
+
+def val(n):
+    if n%3==0:
+        return n//3
+    else:
+        return (n//3)+1
+class Solution:
+    def minimumRounds(self, tasks: List[int]) -> int:
+        d={}
+        ans=0
+        for i in tasks:
+            if i in d:
+                d[i]+=1
+            else:
+                d[i]=1
+        for i in d.values():
+            if i==1:
+                ans=-1
+                break
+            else:
+                ans+=val(i)
+        return ans
+        
+        
+#USING_SET (TLE ON LEETCODE)
+        
+        
+        s=set(tasks)
+        l=[]
+        for i in s:
+             l.append(tasks.count(i))
+        l.sort()
+        ans=0
+        if l[0]==1:
+            return -1
+        else:
+            for i in l:
+                if i==2 or i==3:
+                    ans+=1
+                else:
+                    ans+=val(i)
+        return ans
